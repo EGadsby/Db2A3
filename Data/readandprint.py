@@ -43,12 +43,25 @@ def main():
 import csv
 
 def check_department_information(csv_file):
-
+    ids = []
+    names = []
     mydata = myreader(csv_file)
     for row_num, row in enumerate(mydata, start=1): 
         for col_num, value in enumerate(row, start=1):
             if len(value.strip()) == 0:  
                 print(f"blank value at row {row_num}")
+            if (col_num == 1): 
+                    for id in ids:
+                        if (id == value):
+                            print(f"Duplicate id at row {row_num}")
+                        else:
+                            ids.append(value)
+            if (col_num == 2):
+                    for name in names:
+                        if (name == value):
+                            print(f"Duplicate name at row {row_num}")
+                        else:
+                            names.append(value)
             if (col_num == 3):
                 myList = value.split('/')
                 if len(myList) == 3:      
@@ -56,7 +69,8 @@ def check_department_information(csv_file):
                     DOE = myList[2]
                     if (int(DOE) < 1900):
                         print(f"date is too early at {row_num}")
-    
+    print (ids)
+    print(names)
 
 def check_Number(number):
     if not isinstance(number, (int, float)):
